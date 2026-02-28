@@ -4,7 +4,6 @@ import { useState } from "react";
 import { DM_Sans, Instrument_Serif } from "next/font/google";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@workos-inc/authkit-nextjs/components";
-import { Authenticated, Unauthenticated, useConvexAuth } from "convex/react";
 
 const dmSans = DM_Sans({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"] });
 const instrumentSerif = Instrument_Serif({ subsets: ["latin"], weight: ["400"], style: ["normal", "italic"] });
@@ -117,7 +116,6 @@ function Highlight({ text, query }: { text: string; query: string }) {
 
 export default function DrKard() {
   const { user, signOut } = useAuth();
-  const { isLoading: convexAuthLoading } = useConvexAuth();
   const [mode, setMode] = useState<"exams" | "clinical">("exams");
   const [activeTag, setActiveTag] = useState("usmle1");
   const [activeSecondary, setActiveSecondary] = useState("Subjects");
@@ -547,37 +545,6 @@ export default function DrKard() {
       </header>
 
       <main style={{ maxWidth: 680, margin: "0 auto", padding: "0 20px 120px" }}>
-        <Authenticated>
-          <div
-            style={{
-              marginTop: 16,
-              padding: "10px 14px",
-              border: "1px solid #E4E4E7",
-              borderRadius: 12,
-              background: "#FAFAFA",
-              fontSize: 13,
-              color: "#3F3F46",
-            }}
-          >
-            {convexAuthLoading ? "Verifying Convex auth..." : "Convex auth ready"}
-          </div>
-        </Authenticated>
-        <Unauthenticated>
-          <div
-            style={{
-              marginTop: 16,
-              padding: "10px 14px",
-              border: "1px solid #E4E4E7",
-              borderRadius: 12,
-              background: "#FAFAFA",
-              fontSize: 13,
-              color: "#3F3F46",
-            }}
-          >
-            Sign in to start an authenticated Convex session.
-          </div>
-        </Unauthenticated>
-
         {/* ── RESOURCE CHIP ── */}
         <div style={{ textAlign: "center", paddingTop: 36, paddingBottom: 28 }}>
           <button
